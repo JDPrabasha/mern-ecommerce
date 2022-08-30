@@ -3,6 +3,8 @@ const express = require("express");
 var mongoose = require("mongoose");
 
 const bodyParser = require("body-parser");
+
+const cors = require("cors");
 //Set up default mongoose connection
 var mongoDB = "mongodb://127.0.0.1/ecommerce";
 mongoose.connect(mongoDB, { useNewUrlParser: true });
@@ -17,6 +19,8 @@ db.once("open", function () {
 });
 
 const app = express();
+
+app.use(cors());
 app.use(bodyParser.json());
 
 const productsRoute = require("./routes/products");
