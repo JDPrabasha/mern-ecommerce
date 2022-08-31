@@ -20,36 +20,20 @@ db.once("open", function () {
   console.log("Connected to mongodb");
 });
 
-const users = [
-  {
-    id: "1",
-    email: "john@gmail.com",
-    username: "john",
-    password: "John0908",
-    role: "seller",
-  },
-  {
-    id: "2",
-    username: "jane",
-    email: "jane@gmail.com",
-    password: "Jane0908",
-    role: "buyer",
-  },
-];
-
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
 
 const productsRoute = require("./routes/products");
+const authRoute = require("./routes/auth");
+const Users = require("./models/Users");
 app.use("/products", productsRoute);
-
-app.post("/login", (req, res) => {
+app.use("/auth", authRoute);
+app.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  const user = users.find(
-    (user) => user.email === email && user.password === password
-  );
+  const user = await Users.find({ email: email, password: password });
+
   if (!user) return res.status(400).send("Invalid username or password");
   const token = jwt.sign({ userId: user.id, role: user.role }, "mysecretkey", {
     expiresIn: "1h",
