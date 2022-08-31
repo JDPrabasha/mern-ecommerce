@@ -23,15 +23,17 @@ db.once("open", function () {
 const users = [
   {
     id: "1",
+    email: "john@gmail.com",
     username: "john",
     password: "John0908",
-    isAdmin: true,
+    role: "seller",
   },
   {
     id: "2",
     username: "jane",
+    email: "jane@gmail.com",
     password: "Jane0908",
-    isAdmin: false,
+    role: "buyer",
   },
 ];
 
@@ -44,16 +46,14 @@ const productsRoute = require("./routes/products");
 app.use("/products", productsRoute);
 
 app.post("/login", (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
   const user = users.find(
-    (user) => user.username === username && user.password === password
+    (user) => user.email === email && user.password === password
   );
   if (!user) return res.status(400).send("Invalid username or password");
-  const token = jwt.sign(
-    { userId: user.id, isAdmin: user.isAdmin },
-    "mysecretkey",
-    { expiresIn: "1h" }
-  );
+  const token = jwt.sign({ userId: user.id, role: user.role }, "mysecretkey", {
+    expiresIn: "1h",
+  });
   res.send({ token, user });
 });
 
@@ -64,15 +64,16 @@ const verifyToken = (req, res, next) => {
   jwt.verify(token, "mysecretkey", (err, user) => {
     if (err) return res.status(403).json("Token is invalid");
     req.user = user;
+    console.log(user);
     next();
   });
 };
 
 app.get("/check-role/:userId", verifyToken, (req, res) => {
-  if (req.user.id === req.params.userId || req.user.isAdmin) {
-    res.status(200).json("You have access");
+  if (req.user.userId == req.params.userId) {
+    res.status(200).json(req.user);
   } else {
     res.status(200).json("You do not have access");
   }
 }),
-  app.listen(3000, () => console.log("Example app listening on port 3000!"));
+  app.listen(3000, () => console.log("App listening on port 3000!"));
