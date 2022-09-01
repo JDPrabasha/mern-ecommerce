@@ -26,7 +26,9 @@ function App() {
       <p className="font-bold text-5xl mb-8">Ecommerce App</p>
       <div className="flex flex-wrap gap-4">
         {products.map((product) => (
-          <CartCard key={product._id} product={product} />
+          <Link to={`/products/${product._id}`} key={product._id}>
+            <CartCard key={product._id} product={product} />
+          </Link>
         ))}
       </div>
     </div>
