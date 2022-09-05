@@ -7,6 +7,8 @@ import App from "./App";
 import Login from "./routes/login";
 import Register from "./routes/register";
 import Product from "./routes/buyer/product";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
