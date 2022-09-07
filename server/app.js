@@ -1,27 +1,15 @@
 const express = require("express");
 
-var mongoose = require("mongoose");
-
 const bodyParser = require("body-parser");
 
 const cors = require("cors");
-//Set up default mongoose connection
-var mongoDB = "mongodb://127.0.0.1/ecommerce";
+
+const db = require("./db");
 
 const productsRoute = require("./routes/products");
 const authRoute = require("./routes/auth");
 
 const verifyToken = require("./middleware/verifyToken");
-mongoose.connect(mongoDB, { useNewUrlParser: true });
-//Get the default connection
-var db = mongoose.connection;
-//Bind connection to error event (to get notification of connection errors)
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
-
-db.once("open", function () {
-  console.log("Connected to mongodb");
-});
 
 const app = express();
 
