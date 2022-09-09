@@ -27,4 +27,4 @@ app.post("/login", async (req, res) => {
   res.send({ token, user });
 });
 
-app.listen(3001, () => console.log("App listening on port 3001!"));
+app.listen(3001, () => console.log("Connected to Auth Service on port 3001!"));
