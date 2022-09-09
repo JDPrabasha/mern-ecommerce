@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const mongoDB = "mongodb://127.0.0.1/ecommerce";
+const mongoDB =
+  "mongodb+srv://ESB_MW:ia6J4ogjawR6vlDB@cluster0.3fm9odo.mongodb.net/ecommerce?retryWrites=true&w=majority";
 
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 //Get the default connection

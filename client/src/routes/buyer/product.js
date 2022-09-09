@@ -10,7 +10,7 @@ import CartContext from "../../CartContext";
 function Product() {
   let navigate = useNavigate();
   const handleSubmit = (product) => {
-    addToCart(product.name);
+    addToCart(product);
     navigate(`/cart`);
   };
 
@@ -46,7 +46,7 @@ function Product() {
           withAsterisk
         />
         <p
-          className="border-2 w-fit px-4 py-1 rounded-lg mt-8 border-gray-900"
+          className="border-2 w-fit px-4 py-1 rounded-lg mt-8 border-gray-900 hover:bg-black hover:text-white hover:cursor-pointer hover:scale-105 focus:scale-75 transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);"
           onClick={() => handleSubmit(product)}
         >
           Add to Cart
