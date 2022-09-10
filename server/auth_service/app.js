@@ -10,6 +10,11 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+//test
+app.get("/", (req, res) => {
+  res.status(200).send("Auth Service");
+});
+
 app.post("/register", async (req, res) => {
   const newUser = new User(req.body);
   res.json(newUser);
