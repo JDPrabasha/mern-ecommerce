@@ -2,7 +2,7 @@ const axios = require("axios");
 
 const productsService = {
   getProducts: () => {
-    return axios.get("http://localhost:3000/products");
+    return axios.get("http://localhost:3002/product");
   },
 
   getProduct: (id) => {

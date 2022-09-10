@@ -33,4 +33,15 @@ app.post("/login", async (req, res) => {
   res.send({ token, user });
 });
 
+app.post("/verify", async (req, res) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (token == null) return res.status(401).json("You are not authenticated");
+  jwt.verify(token, "mysecretkey", (err, user) => {
+    if (err) return res.status(403).json("Token is invalid");
+    req.user = user;
+    console.log(user);
+  });
+});
+
 app.listen(3001, () => console.log("Connected to Auth Service on port 3001!"));
