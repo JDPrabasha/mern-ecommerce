@@ -11,6 +11,7 @@ import Product from "./routes/buyer/product";
 import { CartProvider } from "./CartContext";
 import Cart from "./routes/buyer/cart";
 import Products from "./routes/buyer/home";
+import Seller from "./routes/seller/home";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -20,7 +21,7 @@ root.render(
         <Route path="/" element={<Products />} />
         <Route path="/products/:id" element={<Product />} />
         <Route path="/login" element={<Login />} />
-
+        <Route path="/seller/:name" element={<Seller />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>
     </BrowserRouter>

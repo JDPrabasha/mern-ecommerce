@@ -28,7 +28,12 @@ function Login() {
     if (login.status === 200) {
       localStorage.setItem("token", login.data.token);
       localStorage.setItem("user", JSON.stringify(login.data.user));
-      navigate("/");
+      console.log(login.data.user.role);
+      if (login.data.user.role === "buyer") {
+        navigate("/");
+      } else {
+        navigate(`/seller/${login.data.user.name}`);
+      }
     } else {
       console.log("error");
     }
