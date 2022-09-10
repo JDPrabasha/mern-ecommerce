@@ -1,6 +1,15 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const mobilePaymentSchema = new Schema({
+  provider: {
+    type: String,
+  },
+  phoneNo: {
+    type: String,
+  },
+});
+
 const paymentsSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
@@ -11,6 +20,10 @@ const paymentsSchema = new Schema({
   paymentMethod: {
     type: String,
     required: true,
+  },
+  mobilePayment: {
+    type: mobilePaymentSchema,
+    required: false,
   },
   order: {
     type: Schema.Types.ObjectId,
