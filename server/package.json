@@ -2,9 +2,8 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "concurrently --kill-others \"nodemon auth_service/app.js\" \"nodemon buyer_service/app.js\""
   },
   "author": "",
   "license": "ISC",
@@ -16,5 +15,9 @@
     "migrate-mongo": "^9.0.0",
     "mongodb-migrate": "^2.0.2",
     "mongoose": "^6.5.3"
+  },
+  "devDependencies": {
+    "concurrently": "^7.4.0",
+    "nodemon": "^2.0.19"
   }
 }
