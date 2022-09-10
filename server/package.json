@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "concurrently --kill-others \"nodemon auth_service/app.js\" \"nodemon buyer_service/app.js\""
+    "test": "concurrently --kill-others \"nodemon auth_service/app.js\" \"nodemon buyer_service/app.js\" \"nodemon mobile_payment_service/app.js\" \"nodemon order_service/app.js\" \"nodemon seller_service/app.js\""
   },
   "author": "",
   "license": "ISC",
