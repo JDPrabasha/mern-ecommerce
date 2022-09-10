@@ -25,7 +25,7 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.find({ email: email, password: password });
-  if (!user) return res.status(400).send("Invalid username or password");
+  if (!user.userId) return res.status(400).send("Invalid username or password");
   const token = jwt.sign({ userId: user.id, role: user.role }, "mysecretkey", {
     expiresIn: "1h",
   });
