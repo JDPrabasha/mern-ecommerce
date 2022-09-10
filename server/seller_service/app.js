@@ -31,19 +31,16 @@ app.get("/product/:id", (req, res) => {
   });
 });
 app.get("/product/seller/:id", (req, res) => {
-    let sellerId = req.params.id;
-    try {
-      Product.find({ sellerID: sellerId }, (err, products) => {
-        if(err) 
-            res.status(500).end()
-        else 
-            res.json(products)
-      });
-    } catch (err) {
-      res.status(500).send(err);
-    }
-    
-})
+  let sellerId = req.params.id;
+  try {
+    Product.find({ sellerID: sellerId }, (err, products) => {
+      if (err) res.status(500).end();
+      else res.json(products);
+    });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
 app.put("/product/:id", (req, res) => {
   let id = req.params.id;
   try {
@@ -57,18 +54,19 @@ app.put("/product/:id", (req, res) => {
 });
 
 app.delete("/product/:id", (req, res) => {
-    let id = req.params.id
-    try{
-        Product.findByIdAndDelete(id, (err ,docs) => {
-            if (err){
-                console.log(err)
-            }
-            else{
-                res.send(200).end()
-            }
-        })
-    }
-})
+  let id = req.params.id;
+  try {
+    Product.findByIdAndDelete(id, (err, docs) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(200).end();
+      }
+    });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
 
 app.listen(3006, () =>
   console.log("Connected to Seller Service on port 3006!")
