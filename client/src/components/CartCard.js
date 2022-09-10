@@ -11,7 +11,7 @@ function CartCard({ product }) {
         <Text weight={500} className="font-bold text-sm">
           {product.name}
         </Text>
-        <Badge color="pink" variant="light">
+        <Badge color="green" variant="light">
           Rs. {product.price}
         </Badge>
       </Group>
