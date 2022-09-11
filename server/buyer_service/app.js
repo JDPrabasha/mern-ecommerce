@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
   res.status(200).send("Buyer Service");
 });
 
-app.get("/product", (req, res) => {
+app.get("/products", (req, res) => {
   try {
     Product.find({}, (err, products) => {
       if (err) res.status(500).end(err);
@@ -21,6 +21,11 @@ app.get("/product", (req, res) => {
   } catch (err) {
     res.status(500).send(err);
   }
+});
+
+app.get("/product/:id", async (req, res) => {
+  const target = await Product.find({ _id: req.params.id });
+  return res.send(target);
 });
 
 app.listen(3002, () => console.log("Connected to Buyer Service on port 3002!"));

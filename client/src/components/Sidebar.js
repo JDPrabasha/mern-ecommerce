@@ -3,7 +3,9 @@ import React from "react";
 function Sidebar() {
   return (
     <div>
-      <div className="f h-screen bg-black w-2/12"></div>
+      <div className="h-screen bg-black p-5 text-white">
+        <p>Hello</p>
+      </div>
     </div>
   );
 }
