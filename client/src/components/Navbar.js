@@ -1,6 +1,7 @@
 import React from "react";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import { Input, Button } from "@mantine/core";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
@@ -17,9 +18,11 @@ function Navbar() {
       <div className="text-white flex items-center ml-auto  gap-8">
         <p className="font-bold">Dulaj Prabasha</p>
         <FaShoppingCart />
-        <Button color="red" onClick={{}}>
-          Logout
-        </Button>
+        <Link to={`/login`}>
+          <Button color="red" onClick={{}}>
+            Logout
+          </Button>
+        </Link>
       </div>
     </div>
   );
