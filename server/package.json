@@ -14,7 +14,8 @@
     "jsonwebtoken": "^8.5.1",
     "migrate-mongo": "^9.0.0",
     "mongodb-migrate": "^2.0.2",
-    "mongoose": "^6.5.3"
+    "mongoose": "^6.5.3",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "concurrently": "^7.4.0",

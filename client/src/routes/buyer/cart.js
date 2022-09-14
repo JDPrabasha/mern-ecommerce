@@ -11,10 +11,24 @@ import CardPayment from "../../components/CardPayment";
 import MobilePayment from "../../components/MobilePayment";
 
 function Cart() {
+  const { removeFromCart, changeQuantity } = useContext(CartContext);
+  const form = useForm({
+    initialValues: {
+      address: "",
+    },
+    validate: {},
+  });
+
   const { items } = useContext(CartContext);
   const [card, setCard] = useState(true);
   const [mobile, setMobile] = useState(false);
   console.log(items);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    form.validate();
+    if (!form.isValid) return;
+    console.log(form.values);
+  };
   return (
     <div>
       <Navbar />
@@ -30,18 +44,31 @@ function Cart() {
                   alt=""
                 />
                 <p className="font-bold">{item.name}</p>
-                <p className="border-2 py-1 px-3 rounded-lg border-gray-900">
+                <p
+                  onClick={() => {
+                    changeQuantity(item, item.quantity - 1);
+                  }}
+                  className="border-2 py-1 px-3 rounded-lg border-gray-900"
+                >
                   -
                 </p>
                 <p>{item.quantity}</p>
 
-                <p className="border-2 py-1 px-3 rounded-lg border-gray-900">
+                <p
+                  onClick={() => {
+                    changeQuantity(item, item.quantity + 1);
+                  }}
+                  className="border-2 py-1 px-3 rounded-lg border-gray-900"
+                >
                   +
                 </p>
                 <p className="font-bold text-green-400">
                   Rs.{item.price * item.quantity}
                 </p>
-                <AiOutlineDelete className="text-red-500" />
+                <AiOutlineDelete
+                  className="text-red-500 text-4xl px-2 py-2 rounded-sm border-red-500 border hover:cursor-pointer hover:bg-red-500 hover:text-white transiton ease-in-out"
+                  onClick={() => removeFromCart(item)}
+                />
               </div>
             );
           })}
@@ -87,10 +114,14 @@ function Cart() {
 
           <p className="font-bold ml-6 mt-12 ">Address</p>
           <TextInput
+            {...form.getInputProps("address")}
             className="mt-4 mx-6 mb-6"
             placeholder="Enter your address"
           />
-          <a className=" bg-gray-900 px-6 ml-6  text-center text-white font-bold mt-8 rounded-lg py-1">
+          <a
+            onClick={handleSubmit}
+            className=" bg-gray-900 px-6 ml-6  text-center text-white font-bold mt-8 rounded-lg py-1"
+          >
             Place Order
           </a>
         </div>

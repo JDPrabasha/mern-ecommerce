@@ -8,8 +8,26 @@ export function CartProvider({ children }) {
   const addToCart = (item) => {
     setItems((prevState) => [...prevState, item]);
   };
+
+  const removeFromCart = (item) => {
+    setItems((prevState) => prevState.filter((i) => i.id !== item.id));
+  };
+
+  const changeQuantity = (item, quantity) => {
+    setItems((prevState) =>
+      prevState.map((i) => {
+        if (i._id === item._id) {
+          return { ...i, quantity };
+        }
+        return i;
+      })
+    );
+  };
+
   return (
-    <CartContext.Provider value={{ items, addToCart }}>
+    <CartContext.Provider
+      value={{ items, addToCart, removeFromCart, changeQuantity }}
+    >
       {children}
     </CartContext.Provider>
   );

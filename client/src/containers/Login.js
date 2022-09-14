@@ -13,7 +13,10 @@ function Login() {
           <h1 className="font-bold text-4xl mb-4">Welcome back!</h1>
           <p className="mb-4">
             <span> Don't have an account yet? </span>
-            <span className="font-bold text-blue-500" onClick={{}}>
+            <span
+              className="font-bold text-blue-500 hover:cursor-pointer"
+              onClick={() => console.log("press")}
+            >
               Sign Up
             </span>
           </p>

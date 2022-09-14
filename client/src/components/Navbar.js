@@ -6,7 +6,14 @@ import { Link } from "react-router-dom";
 function Navbar() {
   return (
     <div className="w-full flex bg-black items-center flex-grow px-20 py-1 justify-evenly">
-      <img src="/logo.png" width={100} alt="" className="mr-auto" />
+      <Link to="/" className="mr-auto">
+        <img
+          src="/logo.png"
+          width={100}
+          alt=""
+          className=" hover:cursor-pointer"
+        />
+      </Link>
       {/* <div className="w-4/12 h-min bg-white py-1 rounded-full">
         <FaSearch className="ml-auto mr-6" />
       </div> */}
