@@ -25,4 +25,9 @@ app.get("/product", validateToken, (req, res) => {
   }
 });
 
+app.get("/product/:id", async (req, res) => {
+  const target = await Product.find({ _id: req.params.id });
+  return res.send(target);
+});
+
 app.listen(3002, () => console.log("Connected to Buyer Service on port 3002!"));

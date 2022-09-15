@@ -5,6 +5,8 @@ import loginService from "../services/login";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
   const isSignIn = useState(false);
   let navigate = useNavigate();
   const form = useForm({
