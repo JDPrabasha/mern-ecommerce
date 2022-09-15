@@ -4,6 +4,7 @@ const cors = require("cors");
 const db = require("../db");
 const Payment = require("../models/Payments");
 const app = express();
+import validateToken from "../validateToken.js";
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -11,14 +12,14 @@ app.use(bodyParser.json());
 app.get("/", async (req, res) => {
   res.status(200).send("Mobile Payment Service");
 });
-app.get("/payment/:id", (req, res) => {
+app.get("/payment/:id", validateToken, (req, res) => {
   let id = req.params.id;
   Payment.find({ order: id }, (err, payment) => {
     res.json(payment);
   });
 });
 
-app.post("/mobile_payment", async (req, res) => {
+app.post("/mobile_payment", validateToken, async (req, res) => {
   try {
     const newPayment = new Payment(req.body);
     await newPayment.save();
@@ -28,7 +29,7 @@ app.post("/mobile_payment", async (req, res) => {
   }
 });
 
-app.post("/payment", async (req, res) => {
+app.post("/payment", validateToken, async (req, res) => {
   try {
     const newPayment = new Payment(req.body);
     await newPayment.save();

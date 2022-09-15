@@ -2,9 +2,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("../db");
+const jwt = require("jsonwebtoken");
 const Product = require("../models/Products");
 const { response } = require("express");
 const Products = require("../models/Products");
+import validateToken from "../validateToken.js";
+
 const app = express();
 
 app.use(cors());
@@ -14,7 +17,7 @@ app.get("/", async (req, res) => {
   res.status(200).send("Order Service");
 });
 
-app.post("/product", async (req, res) => {
+app.post("/product", validateToken, async (req, res) => {
   try {
     const newProduct = new Product(req.body);
     await newProduct.save();
@@ -24,13 +27,13 @@ app.post("/product", async (req, res) => {
   }
 });
 
-app.get("/product/:id", (req, res) => {
+app.get("/product/:id", validateToken, (req, res) => {
   let id = req.params.id;
   Product.findById(id, (err, product) => {
     res.json(product);
   });
 });
-app.get("/product/seller/:id", (req, res) => {
+app.get("/product/seller/:id", validateToken, (req, res) => {
   let sellerId = req.params.id;
   try {
     Product.find({ sellerID: sellerId }, (err, products) => {
@@ -41,7 +44,8 @@ app.get("/product/seller/:id", (req, res) => {
     res.status(500).send(err);
   }
 });
-app.put("/product/:id", (req, res) => {
+
+app.put("/product/:id", validateToken, (req, res) => {
   let id = req.params.id;
   try {
     Product.findByIdAndUpdate(id, req.body, (err, docs) => {
@@ -53,7 +57,7 @@ app.put("/product/:id", (req, res) => {
   }
 });
 
-app.delete("/product/:id", (req, res) => {
+app.delete("/product/:id", validateToken, (req, res) => {
   let id = req.params.id;
   try {
     Product.findByIdAndDelete(id, (err, docs) => {
