@@ -5,8 +5,7 @@ import loginService from "../services/login";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
+  localStorage.clear();
   const isSignIn = useState(false);
   let navigate = useNavigate();
   const form = useForm({
@@ -62,6 +61,7 @@ function Login() {
               </p>
 
               <TextInput
+                onChange={() => form.validate()}
                 withAsterisk
                 label="Email"
                 placeholder="your@email.com"

@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidebar from "../../components/Sidebar";
 import { GoPackage } from "react-icons/go";
 import { GiShop } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import productsService from "../../services/products";
 
 function Seller() {
-  const sellerId = localStorage.getItem("user")._id;
-  console.log();
+  const sellerId = JSON.parse(localStorage.getItem("user"))._id;
+
   return (
     <div className="flex w-full">
       <Sidebar />

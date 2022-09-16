@@ -10,7 +10,7 @@ export function CartProvider({ children }) {
   };
 
   const removeFromCart = (item) => {
-    setItems((prevState) => prevState.filter((i) => i.id !== item.id));
+    setItems((prevState) => prevState.filter((i) => i._id !== item._id));
   };
 
   const changeQuantity = (item, quantity) => {
