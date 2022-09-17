@@ -27,6 +27,9 @@ const ordersSchema = new Schema({
     required: true,
     ref: "Users",
   },
+  deliveryDate: {
+    type: Date,
+  },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
