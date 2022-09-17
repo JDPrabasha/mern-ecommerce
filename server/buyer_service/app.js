@@ -4,17 +4,16 @@ const cors = require("cors");
 const Product = require("../models/Products");
 const db = require("../db");
 const app = express();
-
-import validateToken from "../validateToken.js";
+const auth = require("../auth");
 
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get("/", validateToken, (req, res) => {
+app.get("/", auth, (req, res) => {
   res.status(200).send("Buyer Service");
 });
 
-app.get("/product", validateToken, (req, res) => {
+app.get("/product", (req, res) => {
   try {
     Product.find({}, (err, products) => {
       if (err) res.status(500).end(err);
