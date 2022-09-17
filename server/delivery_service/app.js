@@ -5,10 +5,9 @@ const db = require("../db");
 const Payment = require("../models/Payments");
 const app = express();
 
-
 app.use(cors());
 app.use(bodyParser.json());
 
 app.get("/delivery", async (req, res) => {
-  res.json({ data: Date.now() });
+  res.json({ date: Date.now() });
 });
