@@ -25,11 +25,13 @@ const paymentsSchema = new Schema({
     type: mobilePaymentSchema,
     required: false,
   },
-  order: {
-    type: Schema.Types.ObjectId,
-    required: true,
-    ref: "Orders",
-  },
+  orders: [
+    {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "Orders",
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,

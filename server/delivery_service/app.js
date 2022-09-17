@@ -4,7 +4,6 @@ const cors = require("cors");
 const db = require("../db");
 const Payment = require("../models/Payments");
 const app = express();
-import validateToken from "../validateToken.js";
 
 app.use(cors());
 app.use(bodyParser.json());

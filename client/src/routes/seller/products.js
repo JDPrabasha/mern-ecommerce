@@ -26,9 +26,11 @@ function SellerProducts() {
             </p>
           </Link>
         </div>
-        {products.map((product) => (
-          <ProductCard product={product} />
-        ))}
+        <div className="flex flex-wrap gap-6 mt-6">
+          {products.map((product) => (
+            <ProductCard product={product} />
+          ))}
+        </div>
       </div>
     </div>
   );

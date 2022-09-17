@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 export function ImageUpload({ addImage, image }) {
-  const [postImage, setPostImage] = useState(image);
+  const [postImage, setPostImage] = useState(image ? image : "");
 
   const url = "http://localhost:5000/uploads";
   const createImage = (newImage) => axios.post(url, newImage);
@@ -42,7 +42,7 @@ export function ImageUpload({ addImage, image }) {
 
   return (
     <div>
-      <img src={image} width="200" height="200" />
+      <img src={postImage} width="200" height="200" />
 
       <input
         type="file"

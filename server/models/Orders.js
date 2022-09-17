@@ -18,6 +18,15 @@ const ordersSchema = new Schema({
       price: Number,
     },
   ],
+  status: {
+    type: String,
+    default: "Inactive",
+  },
+  seller: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: "Users",
+  },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

@@ -24,6 +24,10 @@ const productsService = {
   updateProduct: (id, product) => {
     return axios.put(`http://localhost:3006/product/${id}`, product);
   },
+
+  deleteProduct: (id) => {
+    return axios.delete(`http://localhost:3006/product/${id}`);
+  },
 };
 
 module.exports = productsService;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Sidebar() {
-  const sellerId = localStorage.getItem("user")._id;
+  const sellerId = JSON.parse(localStorage.getItem("user"))._id;
   const [products, setProducts] = useState(false);
   const [orders, setOrders] = useState(false);
   return (
