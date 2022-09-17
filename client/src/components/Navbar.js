@@ -23,8 +23,12 @@ function Navbar() {
         placeholder="Search for things here"
       />
       <div className="text-white flex items-center ml-auto  gap-8">
-        <p className="font-bold">Dulaj Prabasha</p>
-        <FaShoppingCart />
+        <p className="font-bold">
+          {JSON.parse(localStorage.getItem("user")).name}
+        </p>
+        <Link to="/cart">
+          <FaShoppingCart />
+        </Link>
         <Link to={`/login`}>
           <Button color="red" onClick={{}}>
             Logout

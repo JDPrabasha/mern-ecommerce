@@ -1,9 +1,21 @@
 import React, { useState } from "react";
 import { TextInput } from "@mantine/core";
+import { useForm } from "@mantine/form";
 
-function MobilePayment() {
+function MobilePayment({ addMobile }) {
   const [provider, setProvider] = useState({ mobitel: false, dialog: false });
   const [otp, setOtp] = useState(false);
+  const form = useForm({
+    validateInputOnChange: true,
+    initialValues: {
+      number: "",
+      otp: "",
+    },
+    validate: {
+      number: (value) => (/\d{10}/.test(value) ? null : "Invalid number"),
+      otp: (value) => (/\d{3}/.test(value) ? null : "Invalid otp"),
+    },
+  });
   return (
     <div className="block">
       <label className=" text-sm font-semibold mb-4">Provider</label>
@@ -32,12 +44,17 @@ function MobilePayment() {
         />
       </div>
       <label className="mb-2 text-sm font-semibold mt-4">Mobile Number</label>
-      <TextInput className="mb-2 mr-6" placeholder="Enter your number" />
+      <TextInput
+        {...form.getInputProps("number")}
+        className="mb-2 mr-6"
+        placeholder="Enter your number"
+      />
       {otp && (
         <div>
           <label className="mb-2 text-sm font-semibold mt-4">OTP</label>
           <TextInput
             className="mb-6 mr-6"
+            {...form.getInputProps("otp")}
             placeholder="Enter the 4-digit PIN sent to your number"
           />
         </div>
@@ -46,10 +63,21 @@ function MobilePayment() {
         onClick={() => {
           setOtp(true);
         }}
-        className=" bg-gray-900 px-6 hover:cursor-pointer   text-center text-white font-bold mt-8 rounded-lg py-1"
+        className=" bg-gray-900 px-6 hover:cursor-pointer mb-6   text-center text-white font-bold mt-8 rounded-lg py-1"
       >
         {otp ? "Resend OTP" : "Send OTP"}
       </a>
+      {otp ? (
+        <a
+          onClick={() => {
+            form.validate();
+            if (form.isValid) addMobile(form.values);
+          }}
+          className=" bg-blue-900  block mr-80   text-center text-white font-bold mt-8 rounded-lg py-1"
+        >
+          Add Mobile
+        </a>
+      ) : null}
     </div>
   );
 }

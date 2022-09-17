@@ -14,7 +14,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get("/", async (req, res) => {
-  res.status(200).send("Order Service");
+  res.status(200).send("Seller Service");
 });
 
 app.post("/product", async (req, res) => {

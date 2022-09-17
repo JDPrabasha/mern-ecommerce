@@ -11,8 +11,21 @@ import CardPayment from "../../components/CardPayment";
 import MobilePayment from "../../components/MobilePayment";
 
 function Cart() {
+  const addCard = (a) => {
+    console.log("add card");
+    setPaymentPayload(a);
+    console.log(paymentPayload);
+  };
+  const addMobile = (a) => {
+    console.log("add mobile");
+    setPaymentPayload(a);
+    console.log(paymentPayload);
+    console.log(a);
+  };
+
   const { removeFromCart, changeQuantity } = useContext(CartContext);
   const form = useForm({
+    validateInputOnChange: true,
     initialValues: {
       address: "",
     },
@@ -22,13 +35,21 @@ function Cart() {
   const { items } = useContext(CartContext);
   const [card, setCard] = useState(true);
   const [mobile, setMobile] = useState(false);
-  console.log(items);
-  const handleSubmit = async (event) => {
+  const [paymentPayload, setPaymentPayload] = useState({});
+  const handleSubmit = (event) => {
     event.preventDefault();
-    form.validate();
-    if (!form.isValid) return;
-    console.log(form.values);
+    const payload = {
+      user: JSON.parse(localStorage.getItem("user"))._id,
+      ...form.values,
+      method: card ? "card" : "mobile",
+      paymentDetails: {
+        ...paymentPayload,
+        amount: items.reduce((a, b) => a + b.price * b.quantity, 0),
+      },
+    };
+    console.log(payload);
   };
+
   return (
     <div>
       <Navbar />
@@ -108,11 +129,11 @@ function Cart() {
             />
           </div>
           <div className="ml-6 mt-6">
-            {card && <CardPayment />}
-            {mobile && <MobilePayment />}
+            {card && <CardPayment addCard={(a) => addCard(a)} />}
+            {mobile && <MobilePayment addMobile={(a) => addMobile(a)} />}
           </div>
 
-          <p className="font-bold ml-6 mt-12 ">Address</p>
+          <p className="font-bold ml-6 mt-6 ">Address</p>
           <TextInput
             {...form.getInputProps("address")}
             className="mt-4 mx-6 mb-6"

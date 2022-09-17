@@ -14,6 +14,8 @@ import Products from "./routes/buyer/home";
 import Seller from "./routes/seller/home";
 import SellerProducts from "./routes/seller/products";
 import SellerOrders from "./routes/seller/orders";
+import Add from "./routes/seller/add";
+import { SellerProduct } from "./routes/seller/product";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -26,7 +28,12 @@ root.render(
         <Route path="/cart" element={<Cart />} />
         <Route path="/seller/:name" element={<Seller />} />
         <Route path="/seller/:name/products" element={<SellerProducts />} />
+        <Route path="/seller/:name/products/add" element={<Add />} />
         <Route path="/seller/:name/orders" element={<SellerOrders />} />
+        <Route
+          path="/seller/:name/products/:id/edit"
+          element={<SellerProduct />}
+        />
       </Routes>
     </BrowserRouter>
   </CartProvider>
