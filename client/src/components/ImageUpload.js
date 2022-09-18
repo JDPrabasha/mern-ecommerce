@@ -1,24 +1,10 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 export function ImageUpload({ addImage, image }) {
-  const [postImage, setPostImage] = useState(image ? image : "");
-
-  const url = "http://localhost:5000/uploads";
-  const createImage = (newImage) => axios.post(url, newImage);
-
-  const createPost = async (post) => {
-    try {
-      await createImage(post);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    createPost(postImage);
-  };
+  const [postImage, setPostImage] = useState("");
+  useEffect(() => {
+    setPostImage(image);
+  }, [image]);
 
   const convertToBase64 = (file) => {
     return new Promise((resolve, reject) => {

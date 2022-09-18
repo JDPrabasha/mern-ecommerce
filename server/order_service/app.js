@@ -13,9 +13,12 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/order", async (req, res) => {
+  console.log("ughghb");
   try {
-    const newOrder = new Order(req.body);
-    await newOrder.save();
+    await req.body.forEach((element) => {
+      const newOrder = new Order(element);
+      newOrder.save();
+    });
     return res.status(201).end();
   } catch (err) {
     return res.status(500);
@@ -26,6 +29,16 @@ app.get("/order/:id", (req, res) => {
   let id = req.params.id;
   Order.findById(id, (err, order) => {
     res.json(order);
+  });
+});
+
+app.put("/order/:id", (req, res) => {
+  let id = req.params.id;
+  Order.findById(id, (err, order) => {
+    order.status = "Delivering";
+    order.deliveryDate = req.body.deliveryDate;
+    order.save();
+    res.status(204).end();
   });
 });
 

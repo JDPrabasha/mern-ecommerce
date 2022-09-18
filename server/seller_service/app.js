@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const Product = require("../models/Products");
 const { response } = require("express");
 const Products = require("../models/Products");
+const Order = require("../models/Orders");
 
 const app = express();
 
@@ -69,6 +70,20 @@ app.delete("/product/:id", (req, res) => {
   } catch (err) {
     res.status(500).send(err);
   }
+});
+
+app.get("/order/pending/:id", (req, res) => {
+  let sellerId = req.params.id;
+  Order.find({ seller: sellerId, status: "Pending" }, (err, orders) => {
+    res.json(orders);
+  });
+});
+
+app.get("/order/delivering/:id", (req, res) => {
+  let sellerId = req.params.id;
+  Order.find({ seller: sellerId, status: "Delivering" }, (err, orders) => {
+    res.json(orders);
+  });
 });
 
 app.listen(3006, () =>

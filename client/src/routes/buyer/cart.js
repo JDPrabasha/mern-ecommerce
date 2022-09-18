@@ -9,6 +9,7 @@ import { useForm } from "@mantine/form";
 import Navbar from "../../components/Navbar";
 import CardPayment from "../../components/CardPayment";
 import MobilePayment from "../../components/MobilePayment";
+import ordersService from "../../services/orders";
 
 function Cart() {
   const addCard = (a) => {
@@ -48,6 +49,41 @@ function Cart() {
       },
     };
     console.log(payload);
+    console.log(items);
+    const sellers = items.map((item) => item.sellerID);
+    console.log(sellers);
+    const uniqueSellers = [...new Set(sellers)];
+    console.log(uniqueSellers);
+    const groupBySeller = uniqueSellers.map((seller) => {
+      const sellerItems = items.filter((item) => item.sellerID === seller);
+      console.log(sellerItems);
+      return {
+        seller: seller,
+        items: sellerItems,
+      };
+    });
+
+    console.log(groupBySeller);
+
+    const orderPayload = groupBySeller.map((group) => {
+      return {
+        seller: group.seller,
+        products: group.items.map((item) => {
+          return {
+            id: item._id,
+            name: item.name,
+            image: item.image,
+            quantity: item.quantity,
+            price: item.price,
+          };
+        }),
+        user: JSON.parse(localStorage.getItem("user"))._id,
+        deliveryAddress: form.values.address,
+      };
+    });
+    console.log(orderPayload);
+
+    ordersService.postOrders(orderPayload);
   };
 
   return (
