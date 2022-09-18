@@ -4,7 +4,7 @@ const cors = require("cors");
 const Product = require("../models/Products");
 const db = require("../db");
 const app = express();
-const auth = require("../auth");
+const auth = require("./auth")
 
 app.use(cors());
 app.use(bodyParser.json());

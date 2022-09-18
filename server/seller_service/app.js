@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const Product = require("../models/Products");
 const { response } = require("express");
 const Products = require("../models/Products");
-
+const auth = require("./auth");
 
 const app = express();
 
