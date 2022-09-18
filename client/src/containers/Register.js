@@ -28,20 +28,6 @@ function Register({ switchOperation }) {
     const user = { ...form.values, role: value };
     console.log({ ...form.values, role: value });
     registerService.register(user);
-    // const login = await loginService.login(form.values);
-    // console.log(login);
-    // if (login.status === 200) {
-    //   localStorage.setItem("token", login.data.token);
-    //   localStorage.setItem("user", JSON.stringify(login.data.user));
-    //   console.log(login.data.user.role);
-    //   if (login.data.user.role === "buyer") {
-    //     navigate("/");
-    //   } else {
-    //     navigate(`/seller/${login.data.user.name}`);
-    //   }
-    // } else {
-    //   console.log("error");
-    // }
   };
   return (
     <div>

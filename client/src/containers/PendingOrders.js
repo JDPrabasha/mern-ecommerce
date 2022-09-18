@@ -13,7 +13,7 @@ function PendingOrders() {
   };
   useEffect(() => {
     ordersService.getPendingOrdersBySeller(sellerID).then((res) => {
-      setOrders(res.data);
+      setOrders(() => res.data);
       console.log(res.data);
     });
   }, []);

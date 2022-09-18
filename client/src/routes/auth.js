@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { TextInput, Box } from "@mantine/core";
-import { useForm } from "@mantine/form";
-import loginService from "../services/login";
-import { useNavigate } from "react-router-dom";
 import Register from "../containers/Register";
 import Login from "../containers/Login";
 

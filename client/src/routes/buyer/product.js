@@ -38,7 +38,11 @@ function Product() {
           <Image src={product.image} />
         </div>
         <div className="w-5/12">
-          <p className="text-3xl font-bold mb-4">{product.name}</p>
+          <div className="flex">
+            <p className="text-3xl font-bold mb-4">{product.name}</p>
+            <p>{product.seller}</p>
+          </div>
+
           <p className="mb-4">{product.description}</p>
           <NumberInput
             defaultValue={18}
