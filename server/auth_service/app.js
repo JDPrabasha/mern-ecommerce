@@ -4,7 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("../db");
-
+const bcrypt = require("bcrypt");
 const app = express();
 
 app.use(cors());
@@ -16,7 +16,14 @@ app.get("/", (req, res) => {
 });
 
 app.post("/register", async (req, res) => {
-  const newUser = new User(req.body);
+  const hashedPassword = await bcrypt.hash(
+    req.body.password,
+    "$2b$10$X4kv7j5ZcG39WgogSl16au"
+  );
+  const newUser = new User({
+    ...req.body,
+    password: hashedPassword,
+  });
   res.json(newUser);
   const savedUser = await newUser.save();
   return res.send(savedUser);
@@ -24,7 +31,11 @@ app.post("/register", async (req, res) => {
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ email: email, password: password });
+  console.log(await bcrypt.hash(password, "$2b$10$X4kv7j5ZcG39WgogSl16au"));
+  const user = await User.findOne({
+    email: email,
+    password: await bcrypt.hash(password, "$2b$10$X4kv7j5ZcG39WgogSl16au"),
+  });
   console.log(user);
   if (!user) return res.status(400).send("Invalid username or password");
   const token = jwt.sign({ userId: user._id, role: user.role }, "mysecretkey", {

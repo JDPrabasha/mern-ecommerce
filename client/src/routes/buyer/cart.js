@@ -83,7 +83,16 @@ function Cart() {
     });
     console.log(orderPayload);
 
-    ordersService.postOrders(orderPayload);
+    ordersService
+      .postOrders(orderPayload)
+      .then((res) => {
+        if (res.status === 200) {
+          alert("Order placed successfully");
+        }
+      })
+      .catch((err) => {
+        alert("Error placing order\n" + err);
+      });
   };
 
   return (

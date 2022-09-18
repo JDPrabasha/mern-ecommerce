@@ -7,9 +7,15 @@ import { Card, Image, Text, Badge, Button, Group } from "@mantine/core";
 import { NumberInput } from "@mantine/core";
 import CartContext from "../../CartContext";
 import Navbar from "../../components/Navbar";
+import { useForm } from "@mantine/form";
 
 function Product() {
   let navigate = useNavigate();
+  const form = useForm({
+    initialValues: {
+      quantity: 1,
+    },
+  });
   const handleSubmit = (product) => {
     addToCart(product);
     navigate(`/cart`);
@@ -51,10 +57,13 @@ function Product() {
             placeholder="Enter quantity"
             label="Quantity"
             withAsterisk
+            {...form.getInputProps("quantity")}
           />
           <p
             className="border-2 w-fit px-4 py-1 rounded-lg mt-8 border-gray-900 hover:bg-black hover:text-white hover:cursor-pointer hover:scale-105 focus:scale-75 transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);"
-            onClick={() => handleSubmit({ ...product, quantity: 19 })}
+            onClick={() =>
+              handleSubmit({ ...product, quantity: form.values.quantity })
+            }
           >
             Add to Cart
           </p>

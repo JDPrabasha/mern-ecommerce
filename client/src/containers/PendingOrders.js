@@ -16,7 +16,7 @@ function PendingOrders() {
       setOrders(() => res.data);
       console.log(res.data);
     });
-  }, []);
+  }, [orders]);
 
   return (
     <div>

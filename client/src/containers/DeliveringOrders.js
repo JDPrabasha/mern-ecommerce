@@ -10,7 +10,7 @@ function DeliveringOrders() {
       setOrders(res.data);
       console.log(res.data);
     });
-  }, []);
+  }, [orders]);
   return (
     <div>
       <div>
