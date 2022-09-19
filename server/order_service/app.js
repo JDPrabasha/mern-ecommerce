@@ -68,29 +68,9 @@ app.put("/order/:id", (req, res) => {
 
 app.put("/order/activate/:id", async (req, res) => {
   let id = req.params.id;
-  console.log(id);
-
-  await Payment.findById(id).then((payment) => {
-    payment.orders.forEach((element) => {
-      Order.findById(element, (err, order) => {
-        order.status = "Pending";
-        order.save();
-        console.log(order);
-        res.status(204).json({ message: "Done" }).end();
-      });
-    });
-  });
-
-  //   await Payment.findById(id, (err, payment) => {
-  //     payment.orders.forEach(async (order) => {
-  //       await Order.findById(order, (err, order) => {
-  //         console.log(order.address);
-  //         order.status = "Pending";
-  //         order.save();
-  //       });
-  //     });
-  //     res.status(204).end();
-  //   });
+  // take in  payment id
+  //find orders related to id
+  //update status of each order to "Pending"
 });
 
 app.get("/order/buyer/:id", (req, res) => {
