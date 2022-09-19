@@ -11,8 +11,10 @@ import CardPayment from "../../components/CardPayment";
 import MobilePayment from "../../components/MobilePayment";
 import ordersService from "../../services/orders";
 import paymentService from "../../services/payment";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Cart() {
+  const navigate = useNavigate();
   const addCard = (a) => {
     console.log("add card");
     setPaymentPayload(a);
@@ -103,6 +105,7 @@ function Cart() {
                       console.log(res);
                       clearCart();
                       alert("Order successfully placed");
+                      navigate("/");
                     });
                 })
                 .catch((err) => {
@@ -118,6 +121,7 @@ function Cart() {
                       console.log(res);
                       clearCart();
                       alert("Order successfully placed");
+                      navigate("/");
                     });
                 })
                 .catch((err) => {
