@@ -43,7 +43,6 @@ function Cart() {
   const [paymentPayload, setPaymentPayload] = useState({});
   const handleSubmit = (event) => {
     event.preventDefault();
-
     console.log(items);
     const sellers = items.map((item) => item.sellerID);
     console.log(sellers);
@@ -84,6 +83,7 @@ function Cart() {
         console.log(res.status);
         if (res.status === 201) {
           const orders = res.data.orders;
+          console.log(orders);
           const payload = {
             user: JSON.parse(localStorage.getItem("user"))._id,
             ...form.values,
