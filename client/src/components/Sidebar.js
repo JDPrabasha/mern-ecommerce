@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Sidebar() {
-  const sellerId = localStorage.getItem("user")._id;
+  const sellerId = JSON.parse(localStorage.getItem("user"))._id;
+  const name = JSON.parse(localStorage.getItem("user")).name;
   const [products, setProducts] = useState(false);
   const [orders, setOrders] = useState(false);
   return (
     <div>
       <div className="h-screen bg-black p-5 text-white">
-        <img src="/logo.png" width={100} alt="" className="mr-auto mb-20" />
+        <img src="/logo.png" width={100} alt="" className="mr-auto mb-5" />
+        <p className="mb-20 ml-2 mr-2">{name}</p>
         <Link to={`/seller/${sellerId}/products`}>
           <p
             onClick={() => {

@@ -9,8 +9,12 @@ import { useForm } from "@mantine/form";
 import Navbar from "../../components/Navbar";
 import CardPayment from "../../components/CardPayment";
 import MobilePayment from "../../components/MobilePayment";
+import ordersService from "../../services/orders";
+import paymentService from "../../services/payment";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Cart() {
+  const navigate = useNavigate();
   const addCard = (a) => {
     console.log("add card");
     setPaymentPayload(a);
@@ -23,7 +27,7 @@ function Cart() {
     console.log(a);
   };
 
-  const { removeFromCart, changeQuantity } = useContext(CartContext);
+  const { removeFromCart, changeQuantity, clearCart } = useContext(CartContext);
   const form = useForm({
     validateInputOnChange: true,
     initialValues: {
@@ -38,16 +42,96 @@ function Cart() {
   const [paymentPayload, setPaymentPayload] = useState({});
   const handleSubmit = (event) => {
     event.preventDefault();
-    const payload = {
-      user: JSON.parse(localStorage.getItem("user"))._id,
-      ...form.values,
-      method: card ? "card" : "mobile",
-      paymentDetails: {
-        ...paymentPayload,
-        amount: items.reduce((a, b) => a + b.price * b.quantity, 0),
-      },
-    };
-    console.log(payload);
+
+    console.log(items);
+    const sellers = items.map((item) => item.sellerID);
+    console.log(sellers);
+    const uniqueSellers = [...new Set(sellers)];
+    console.log(uniqueSellers);
+    const groupBySeller = uniqueSellers.map((seller) => {
+      const sellerItems = items.filter((item) => item.sellerID === seller);
+      console.log(sellerItems);
+      return {
+        seller: seller,
+        items: sellerItems,
+      };
+    });
+
+    console.log(groupBySeller);
+
+    const orderPayload = groupBySeller.map((group) => {
+      return {
+        seller: group.seller,
+        products: group.items.map((item) => {
+          return {
+            id: item._id,
+            name: item.name,
+            image: item.image,
+            quantity: item.quantity,
+            price: item.price,
+          };
+        }),
+        user: JSON.parse(localStorage.getItem("user"))._id,
+        deliveryAddress: form.values.address,
+      };
+    });
+    console.log(orderPayload);
+
+    ordersService
+      .postOrders(orderPayload)
+      .then((res) => {
+        console.log(res.status);
+        if (res.status === 201) {
+          alert("Order placed successfully");
+          const orders = res.data.orders;
+          const payload = {
+            user: JSON.parse(localStorage.getItem("user"))._id,
+            ...form.values,
+            method: card ? "card" : "mobile",
+            orders: orders,
+            paymentDetails: {
+              ...paymentPayload,
+              amount: items.reduce((a, b) => a + b.price * b.quantity, 0),
+            },
+          };
+          card
+            ? paymentService
+                .payByCard(payload)
+                .then((res) => {
+                  console.log(res.data.paymentID);
+                  ordersService
+                    .activateOrders(res.data.paymentID)
+                    .then((res) => {
+                      console.log(res);
+                      clearCart();
+                      alert("Order successfully placed");
+                      navigate("/");
+                    });
+                })
+                .catch((err) => {
+                  alert("Payment error\n" + err);
+                })
+            : paymentService
+                .payByMobile(payload)
+                .then((res) => {
+                  console.log(res.data.paymentID);
+                  ordersService
+                    .activateOrders(res.data.paymentID)
+                    .then((res) => {
+                      console.log(res);
+                      clearCart();
+                      alert("Order successfully placed");
+                      navigate("/");
+                    });
+                })
+                .catch((err) => {
+                  alert("Payment error\n" + err);
+                });
+        }
+      })
+      .catch((err) => {
+        alert("Error placing order\n" + err);
+      });
   };
 
   return (

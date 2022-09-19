@@ -9,6 +9,32 @@ const auth = require("./auth");
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get("/payment", async (req, res) => {
-  res.json({ date: Date.now(), success: true });
+app.post("/payment", async (req, res) => {
+  try {
+    console.log(req.body);
+    const newPayment = new Payment({
+      user: req.body.user,
+      paymentMethod: req.body.method,
+      orders: req.body.orders,
+      amount: req.body.paymentDetails.amount,
+      address: req.body.address,
+    });
+    await newPayment.save(function (err, payment) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(payment._id);
+        return res
+          .status(200)
+          .json({ message: "Payment Successful", paymentID: payment._id })
+          .end();
+      }
+    });
+  } catch (err) {
+    return res.status(500).send(err);
+  }
 });
+
+app.listen(3011, () =>
+  console.log("Connected to Payment Service on port 3011!")
+);

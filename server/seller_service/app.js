@@ -72,6 +72,20 @@ app.delete("/product/:id", (req, res) => {
   }
 });
 
+app.get("/order/pending/:id", (req, res) => {
+  let sellerId = req.params.id;
+  Order.find({ seller: sellerId, status: "Pending" }, (err, orders) => {
+    res.json(orders);
+  });
+});
+
+app.get("/order/delivering/:id", (req, res) => {
+  let sellerId = req.params.id;
+  Order.find({ seller: sellerId, status: "Delivering" }, (err, orders) => {
+    res.json(orders);
+  });
+});
+
 app.listen(3006, () =>
   console.log("Connected to Seller Service on port 3006!")
 );

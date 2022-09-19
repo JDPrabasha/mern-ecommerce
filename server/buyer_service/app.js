@@ -4,7 +4,7 @@ const cors = require("cors");
 const Product = require("../models/Products");
 const db = require("../db");
 const app = express();
-const auth = require("./auth")
+const auth = require("./auth");
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -13,7 +13,7 @@ app.get("/", auth, (req, res) => {
   res.status(200).send("Buyer Service");
 });
 
-app.get("/product", (req, res) => {
+app.get("/products", (req, res) => {
   try {
     Product.find({}, (err, products) => {
       if (err) res.status(500).end(err);

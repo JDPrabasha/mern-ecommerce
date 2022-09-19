@@ -8,6 +8,13 @@ const auth = require("./auth");
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get("/sms", async (req, res) => {
-  res.json({ message: req.body.message});
+app.post("/notify", async (req, res) => {
+  //take in array of order ids as request
+  //for each order, find seller name
+  //console.log("Order successfully placed/n" + "Order ID: " id + "Seller": seller name);
+  //for each order
 });
+
+app.listen(3012, () =>
+  console.log("Connected to Notification Service on port 3012!")
+);
