@@ -4,6 +4,7 @@ const cors = require("cors");
 const db = require("../db");
 const jwt = require("jsonwebtoken");
 const Product = require("../models/Products");
+const Order = require("../models/Orders");
 const { response } = require("express");
 const Products = require("../models/Products");
 const auth = require("./auth");

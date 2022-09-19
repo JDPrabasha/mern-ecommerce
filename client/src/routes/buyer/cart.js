@@ -12,6 +12,7 @@ import MobilePayment from "../../components/MobilePayment";
 import ordersService from "../../services/orders";
 import paymentService from "../../services/payment";
 import { Navigate, useNavigate } from "react-router-dom";
+import notificationService from "../../services/notification";
 
 function Cart() {
   const navigate = useNavigate();
@@ -82,7 +83,6 @@ function Cart() {
       .then((res) => {
         console.log(res.status);
         if (res.status === 201) {
-          alert("Order placed successfully");
           const orders = res.data.orders;
           const payload = {
             user: JSON.parse(localStorage.getItem("user"))._id,
@@ -105,6 +105,7 @@ function Cart() {
                       console.log(res);
                       clearCart();
                       alert("Order successfully placed");
+                      notificationService.sendNotifications(orders);
                       navigate("/");
                     });
                 })
