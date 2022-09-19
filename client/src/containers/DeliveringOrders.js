@@ -45,7 +45,17 @@ function DeliveringOrders() {
             </div>
             <div>
               <p className="mb-9 font-bold">Delivery Date</p>
-              <p>Date</p>
+              <p>
+                {
+                  new Date(order.deliveryDate)
+                    .toLocaleTimeString("fr-CA", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                    })
+                    .split(" ")[0]
+                }
+              </p>
             </div>
           </div>
         ))}

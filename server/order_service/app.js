@@ -55,7 +55,7 @@ app.put("/order/:id", (req, res) => {
   let id = req.params.id;
   Order.findById(id, (err, order) => {
     order.status = "Delivering";
-    order.deliveryDate = Date.now();
+    order.deliveryDate = req.body.date;
     order.save();
     order.products.forEach((element) => {
       Product.findById(element.id, (err, product) => {
