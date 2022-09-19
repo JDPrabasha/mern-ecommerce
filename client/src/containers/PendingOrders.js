@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import deliveryService from "../services/delivery";
 import ordersService from "../services/orders";
 
 function PendingOrders() {
@@ -7,8 +8,15 @@ function PendingOrders() {
   const handleSubmit = (order) => {
     console.log("submit");
     console.log(order);
-    ordersService.updateOrderStatus(order, { date: new Date() }).then((res) => {
-      console.log(res);
+    deliveryService.postDelivery(order._id).then((res) => {
+      if (res.status === 200) {
+        alert(res.data.message);
+        ordersService
+          .updateOrderStatus(order, { date: res.data.date })
+          .then((res) => {
+            console.log(res);
+          });
+      }
     });
   };
   useEffect(() => {
@@ -16,7 +24,7 @@ function PendingOrders() {
       setOrders(() => res.data);
       console.log(res.data);
     });
-  }, [orders]);
+  }, []);
 
   return (
     <div>

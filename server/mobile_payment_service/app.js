@@ -20,9 +20,16 @@ app.get("/payment/:id", (req, res) => {
 
 app.post("/mobile_payment", async (req, res) => {
   try {
-    const newPayment = new Payment(req.body);
+    const newPayment = new Payment({
+      user: req.body.user,
+      paymentMethod: req.body.method,
+      orders: req.body.orders,
+      amount: req.body.paymentDetails.amount,
+      address: req.body.address,
+      mobile: req.body.paymentDetails.mobile,
+    });
     await newPayment.save();
-    return res.status(200).end();
+    return res.status(200).json({ message: "Payment Successful" }).end();
   } catch (err) {
     return res.status(500).send(err);
   }

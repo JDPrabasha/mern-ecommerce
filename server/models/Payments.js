@@ -21,10 +21,14 @@ const paymentsSchema = new Schema({
     type: String,
     required: true,
   },
-  mobilePayment: {
-    type: mobilePaymentSchema,
-    required: false,
+
+  mobile: {
+    type: String,
   },
+  // mobilePayment: {
+  //   type: mobilePaymentSchema,
+  //   required: false,
+  // },
   orders: [
     {
       type: Schema.Types.ObjectId,

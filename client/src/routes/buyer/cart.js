@@ -10,6 +10,7 @@ import Navbar from "../../components/Navbar";
 import CardPayment from "../../components/CardPayment";
 import MobilePayment from "../../components/MobilePayment";
 import ordersService from "../../services/orders";
+import paymentService from "../../services/payment";
 
 function Cart() {
   const addCard = (a) => {
@@ -24,7 +25,7 @@ function Cart() {
     console.log(a);
   };
 
-  const { removeFromCart, changeQuantity } = useContext(CartContext);
+  const { removeFromCart, changeQuantity, clearCart } = useContext(CartContext);
   const form = useForm({
     validateInputOnChange: true,
     initialValues: {
@@ -39,16 +40,7 @@ function Cart() {
   const [paymentPayload, setPaymentPayload] = useState({});
   const handleSubmit = (event) => {
     event.preventDefault();
-    const payload = {
-      user: JSON.parse(localStorage.getItem("user"))._id,
-      ...form.values,
-      method: card ? "card" : "mobile",
-      paymentDetails: {
-        ...paymentPayload,
-        amount: items.reduce((a, b) => a + b.price * b.quantity, 0),
-      },
-    };
-    console.log(payload);
+
     console.log(items);
     const sellers = items.map((item) => item.sellerID);
     console.log(sellers);
@@ -86,8 +78,51 @@ function Cart() {
     ordersService
       .postOrders(orderPayload)
       .then((res) => {
-        if (res.status === 200) {
+        console.log(res.status);
+        if (res.status === 201) {
           alert("Order placed successfully");
+          const orders = res.data.orders;
+          const payload = {
+            user: JSON.parse(localStorage.getItem("user"))._id,
+            ...form.values,
+            method: card ? "card" : "mobile",
+            orders: orders,
+            paymentDetails: {
+              ...paymentPayload,
+              amount: items.reduce((a, b) => a + b.price * b.quantity, 0),
+            },
+          };
+          card
+            ? paymentService
+                .payByCard(payload)
+                .then((res) => {
+                  console.log(res.data.paymentID);
+                  ordersService
+                    .activateOrders(res.data.paymentID)
+                    .then((res) => {
+                      console.log(res);
+                      clearCart();
+                      alert("Order successfully placed");
+                    });
+                })
+                .catch((err) => {
+                  alert("Payment error\n" + err);
+                })
+            : paymentService
+                .payByMobile(payload)
+                .then((res) => {
+                  console.log(res.data.paymentID);
+                  ordersService
+                    .activateOrders(res.data.paymentID)
+                    .then((res) => {
+                      console.log(res);
+                      clearCart();
+                      alert("Order successfully placed");
+                    });
+                })
+                .catch((err) => {
+                  alert("Payment error\n" + err);
+                });
         }
       })
       .catch((err) => {

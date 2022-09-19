@@ -10,8 +10,11 @@ const ordersService = {
   getDeliveringOrdersBySeller: (id) => {
     return axios.get(`http://localhost:3006/order/delivering/${id}`);
   },
+  activateOrders: (id) => {
+    return axios.put(`http://localhost:3004/order/activate/${id}`);
+  },
   updateOrderStatus: (id, date) => {
-    return axios.put(`http://localhost:300/order/${id}`, date);
+    return axios.put(`http://localhost:3004/order/${id}`, date);
   },
 };
 

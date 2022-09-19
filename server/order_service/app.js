@@ -4,6 +4,7 @@ const cors = require("cors");
 const db = require("../db");
 const Order = require("../models/Orders");
 const Product = require("../models/Products");
+const Payment = require("../models/Payments");
 const app = express();
 
 app.use(cors());
@@ -22,13 +23,21 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/order", async (req, res) => {
-  console.log("ughghb");
   try {
+    let orderIDs = [];
     await req.body.forEach((element) => {
       const newOrder = new Order(element);
-      newOrder.save();
+      newOrder.save(function (err, savedOrder) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(savedOrder._id);
+          orderIDs.push(savedOrder._id);
+          console.log(orderIDs);
+          return res.status(201).json({ orders: orderIDs }).end();
+        }
+      });
     });
-    return res.status(201).end();
   } catch (err) {
     return res.status(500);
   }
@@ -55,6 +64,33 @@ app.put("/order/:id", (req, res) => {
     });
     res.status(204).end();
   });
+});
+
+app.put("/order/activate/:id", async (req, res) => {
+  let id = req.params.id;
+  console.log(id);
+
+  await Payment.findById(id).then((payment) => {
+    payment.orders.forEach((element) => {
+      Order.findById(element, (err, order) => {
+        order.status = "Pending";
+        order.save();
+        console.log(order);
+        res.status(204).json({ message: "Done" }).end();
+      });
+    });
+  });
+
+  //   await Payment.findById(id, (err, payment) => {
+  //     payment.orders.forEach(async (order) => {
+  //       await Order.findById(order, (err, order) => {
+  //         console.log(order.address);
+  //         order.status = "Pending";
+  //         order.save();
+  //       });
+  //     });
+  //     res.status(204).end();
+  //   });
 });
 
 app.get("/order/buyer/:id", (req, res) => {
