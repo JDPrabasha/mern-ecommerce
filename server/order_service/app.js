@@ -68,10 +68,27 @@ app.put("/order/:id", (req, res) => {
 });
 
 app.put("/order/activate/:id", async (req, res) => {
-  let id = req.params.id;
+  let paymentId = req.params.id;
   // take in  payment id
   //find orders related to id
   //update status of each order to "Pending"
+  let response = [];
+  Payment.findById(paymentId)
+    .populate("orders")
+    .exec((err, payment) => {
+      let orderIds = [];
+      payment.orders.map((order) => orderIds.push(order._id.toString()));
+      console.log(orderIds);
+      orderIds.map((id) => {
+        Order.findById(id, (err, order) => {
+          order.status = "Pending";
+          order.save();
+        });
+      });
+
+      if (err) console.log(err);
+      res.status(204).end();
+    });
 });
 
 app.get("/order/buyer/:id", (req, res) => {
