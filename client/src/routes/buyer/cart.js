@@ -11,21 +11,16 @@ import CardPayment from "../../components/CardPayment";
 import MobilePayment from "../../components/MobilePayment";
 import ordersService from "../../services/orders";
 import paymentService from "../../services/payment";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import notificationService from "../../services/notification";
 
 function Cart() {
   const navigate = useNavigate();
   const addCard = (a) => {
-    console.log("add card");
     setPaymentPayload(a);
-    console.log(paymentPayload);
   };
   const addMobile = (a) => {
-    console.log("add mobile");
     setPaymentPayload(a);
-    console.log(paymentPayload);
-    console.log(a);
   };
 
   const { removeFromCart, changeQuantity, clearCart } = useContext(CartContext);
@@ -43,21 +38,15 @@ function Cart() {
   const [paymentPayload, setPaymentPayload] = useState({});
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(items);
     const sellers = items.map((item) => item.sellerID);
-    console.log(sellers);
     const uniqueSellers = [...new Set(sellers)];
-    console.log(uniqueSellers);
     const groupBySeller = uniqueSellers.map((seller) => {
       const sellerItems = items.filter((item) => item.sellerID === seller);
-      console.log(sellerItems);
       return {
         seller: seller,
         items: sellerItems,
       };
     });
-
-    console.log(groupBySeller);
 
     const orderPayload = groupBySeller.map((group) => {
       return {
@@ -75,59 +64,34 @@ function Cart() {
         deliveryAddress: form.values.address,
       };
     });
-    console.log(orderPayload);
 
     ordersService
       .postOrders(orderPayload)
       .then((res) => {
-        console.log(res.status);
         if (res.status === 201) {
           const orders = res.data.orders;
-          console.log(orders);
           const payload = {
             user: JSON.parse(localStorage.getItem("user"))._id,
             ...form.values,
-            method: card ? "card" : "mobile",
             orders: orders,
             paymentDetails: {
               ...paymentPayload,
               amount: items.reduce((a, b) => a + b.price * b.quantity, 0),
             },
           };
-          card
-            ? paymentService
-                .payByCard(payload)
-                .then((res) => {
-                  console.log(res.data.paymentID);
-                  ordersService
-                    .activateOrders(res.data.paymentID)
-                    .then((res) => {
-                      console.log(res);
-                      clearCart();
-                      alert("Order successfully placed");
-                      notificationService.sendNotifications(orders);
-                      navigate("/");
-                    });
-                })
-                .catch((err) => {
-                  alert("Payment error\n" + err);
-                })
-            : paymentService
-                .payByMobile(payload)
-                .then((res) => {
-                  console.log(res.data.paymentID);
-                  ordersService
-                    .activateOrders(res.data.paymentID)
-                    .then((res) => {
-                      console.log(res);
-                      clearCart();
-                      alert("Order successfully placed");
-                      navigate("/");
-                    });
-                })
-                .catch((err) => {
-                  alert("Payment error\n" + err);
-                });
+          paymentService
+            .makePayment(payload)
+            .then((res) => {
+              ordersService.activateOrders(res.data.paymentID).then((res) => {
+                clearCart();
+                alert("Order successfully placed");
+                notificationService.sendNotifications(orders);
+                navigate("/");
+              });
+            })
+            .catch((err) => {
+              alert("Payment error\n" + err);
+            });
         }
       })
       .catch((err) => {

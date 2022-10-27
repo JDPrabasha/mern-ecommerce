@@ -24,7 +24,7 @@ app.post("/register", async (req, res) => {
     ...req.body,
     password: hashedPassword,
   });
-  res.json(newUser);
+
   const savedUser = await newUser.save();
   return res.send(savedUser);
 });
