@@ -62,6 +62,7 @@ function MobilePayment({ addMobile }) {
       <a
         onClick={() => {
           setOtp(true);
+          alert("OTP sent to your number");
         }}
         className=" bg-gray-900 px-6 hover:cursor-pointer mb-6   text-center text-white font-bold mt-8 rounded-lg py-1"
       >

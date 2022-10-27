@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "concurrently --kill-others \"nodemon auth_service/app.js\" \"nodemon buyer_service/app.js\" \"nodemon mobile_payment_service/app.js\" \"nodemon order_service/app.js\" \"nodemon seller_service/app.js\""
+    "test": "concurrently --kill-others \"nodemon auth_service/app.js\" \"nodemon buyer_service/app.js\" \"nodemon mobile_payment_service/app.js\" \"nodemon order_service/app.js\" \"nodemon seller_service/app.js\" \"nodemon delivery_service/app.js\" \"nodemon payment_service/app.js\" \"nodemon notification_service/app.js\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "express": "^4.18.1",

@@ -3,8 +3,12 @@ import React from "react";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import productsService from "../services/products";
 
 function ProductCard({ product }) {
+  const deleteProduct = () => {
+    productsService.deleteProduct(product._id);
+  };
   return (
     <Card shadow="sm" p="lg" radius="md" withBorder className="w-72 max-w-72">
       <Card.Section>
@@ -26,7 +30,10 @@ function ProductCard({ product }) {
             EDIT
           </p>
         </Link>
-        <p className="flex font-bold text-sm items-center gap-2 border rounded-full  px-2 border-red-500 text-red-500">
+        <p
+          onClick={deleteProduct}
+          className="flex hover:cursor-pointer font-bold text-sm items-center gap-2 border rounded-full  px-2 border-red-500 text-red-500"
+        >
           <BsFillTrashFill />
           DELETE
         </p>

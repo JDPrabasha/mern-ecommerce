@@ -9,21 +9,21 @@ import { useForm } from "@mantine/form";
 import Navbar from "../../components/Navbar";
 import CardPayment from "../../components/CardPayment";
 import MobilePayment from "../../components/MobilePayment";
+import ordersService from "../../services/orders";
+import paymentService from "../../services/payment";
+import { useNavigate } from "react-router-dom";
+import notificationService from "../../services/notification";
 
 function Cart() {
+  const navigate = useNavigate();
   const addCard = (a) => {
-    console.log("add card");
     setPaymentPayload(a);
-    console.log(paymentPayload);
   };
   const addMobile = (a) => {
-    console.log("add mobile");
     setPaymentPayload(a);
-    console.log(paymentPayload);
-    console.log(a);
   };
 
-  const { removeFromCart, changeQuantity } = useContext(CartContext);
+  const { removeFromCart, changeQuantity, clearCart } = useContext(CartContext);
   const form = useForm({
     validateInputOnChange: true,
     initialValues: {
@@ -38,16 +38,65 @@ function Cart() {
   const [paymentPayload, setPaymentPayload] = useState({});
   const handleSubmit = (event) => {
     event.preventDefault();
-    const payload = {
-      user: JSON.parse(localStorage.getItem("user"))._id,
-      ...form.values,
-      method: card ? "card" : "mobile",
-      paymentDetails: {
-        ...paymentPayload,
-        amount: items.reduce((a, b) => a + b.price * b.quantity, 0),
-      },
-    };
-    console.log(payload);
+    const sellers = items.map((item) => item.sellerID);
+    const uniqueSellers = [...new Set(sellers)];
+    const groupBySeller = uniqueSellers.map((seller) => {
+      const sellerItems = items.filter((item) => item.sellerID === seller);
+      return {
+        seller: seller,
+        items: sellerItems,
+      };
+    });
+
+    const orderPayload = groupBySeller.map((group) => {
+      return {
+        seller: group.seller,
+        products: group.items.map((item) => {
+          return {
+            id: item._id,
+            name: item.name,
+            image: item.image,
+            quantity: item.quantity,
+            price: item.price,
+          };
+        }),
+        user: JSON.parse(localStorage.getItem("user"))._id,
+        deliveryAddress: form.values.address,
+      };
+    });
+
+    ordersService
+      .postOrders(orderPayload)
+      .then((res) => {
+        if (res.status === 201) {
+          const orders = res.data.orders;
+          const payload = {
+            user: JSON.parse(localStorage.getItem("user"))._id,
+            ...form.values,
+            orders: orders,
+            paymentDetails: {
+              ...paymentPayload,
+              amount: items.reduce((a, b) => a + b.price * b.quantity, 0),
+            },
+          };
+          paymentService
+            .makePayment(payload)
+            .then((res) => {
+              ordersService.activateOrders(res.data.paymentID).then((res) => {
+                clearCart();
+                alert("Order successfully placed");
+                notificationService.sendNotifications(orders);
+                navigate("/");
+              });
+            })
+            .catch((err) => {
+              alert("Payment error\n" + err);
+            });
+        }
+      })
+      .catch((err) => {
+        alert("Error placing order\n" + err);
+      });
   };
 
   return (

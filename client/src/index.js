@@ -4,8 +4,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 
-import Login from "./routes/login";
-
 import Product from "./routes/buyer/product";
 
 import { CartProvider } from "./CartContext";
@@ -16,6 +14,7 @@ import SellerProducts from "./routes/seller/products";
 import SellerOrders from "./routes/seller/orders";
 import Add from "./routes/seller/add";
 import { SellerProduct } from "./routes/seller/product";
+import Auth from "./routes/auth";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -24,7 +23,7 @@ root.render(
       <Routes>
         <Route path="/" element={<Products />} />
         <Route path="/products/:id" element={<Product />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Auth />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/seller/:name" element={<Seller />} />
         <Route path="/seller/:name/products" element={<SellerProducts />} />

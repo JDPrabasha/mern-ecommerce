@@ -2,8 +2,18 @@ import React from "react";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import { Input, Button } from "@mantine/core";
 import { Link } from "react-router-dom";
+import { useForm } from "@mantine/form";
+import { useLocation } from "react-router-dom";
 
-function Navbar() {
+function Navbar({ filterFunction }) {
+  const location = useLocation();
+  const path = location.pathname;
+
+  const form = useForm({
+    initialValues: {
+      search: "",
+    },
+  });
   return (
     <div className="w-full flex bg-black items-center flex-grow px-20 py-1 justify-evenly">
       <Link to="/" className="mr-auto">
@@ -14,13 +24,16 @@ function Navbar() {
           className=" hover:cursor-pointer"
         />
       </Link>
-      {/* <div className="w-4/12 h-min bg-white py-1 rounded-full">
-        <FaSearch className="ml-auto mr-6" />
-      </div> */}
+
       <Input
-        className="min-w-5/12 w-4/12"
+        className={path === "/" ? "min-w-5/12 w-4/12" : "hidden"}
         icon={<FaSearch />}
         placeholder="Search for things here"
+        onKeyDown={(e) => {
+          console.log(e.target.value);
+          filterFunction(e.target.value);
+        }}
+        onChange={console.log("hello")}
       />
       <div className="text-white flex items-center ml-auto  gap-8">
         <p className="font-bold">

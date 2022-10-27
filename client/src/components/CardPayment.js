@@ -12,7 +12,7 @@ function CardPayment({ addCard }) {
     },
 
     validate: {
-      name: (value) => (/^[a-z ,.'-]+$/.test(value) ? null : "Invalid name"),
+      // name: (value) => (/^[a-z ,.'-]+$/.test(value) ? null : "Invalid name"),
       cvc: (value) => (/\d{3}/.test(value) ? null : "Invalid cvc"),
       number: (value) => (/\d{16}/.test(value) ? null : "Invalid number"),
       // (/^\S+@\S+$/.test(value) ?
