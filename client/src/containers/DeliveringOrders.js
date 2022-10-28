@@ -8,7 +8,6 @@ function DeliveringOrders() {
   useEffect(() => {
     ordersService.getDeliveringOrdersBySeller(sellerID).then((res) => {
       setOrders(res.data);
-      console.log(res.data);
     });
   }, [orders]);
   return (

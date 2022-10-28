@@ -6,23 +6,16 @@ function PendingOrders() {
   const [orders, setOrders] = React.useState([]);
   const sellerID = JSON.parse(localStorage.getItem("user"))._id;
   const handleSubmit = (order) => {
-    console.log("submit");
-    console.log(order);
     deliveryService.postDelivery(order._id).then((res) => {
       if (res.status === 200) {
         alert(res.data.message);
-        ordersService
-          .updateOrderStatus(order, { date: res.data.date })
-          .then((res) => {
-            console.log(res);
-          });
+        ordersService.updateOrderStatus(order, { date: res.data.date });
       }
     });
   };
   useEffect(() => {
     ordersService.getPendingOrdersBySeller(sellerID).then((res) => {
       setOrders(() => res.data);
-      console.log(res.data);
     });
   }, []);
 

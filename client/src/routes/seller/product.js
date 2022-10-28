@@ -21,7 +21,6 @@ export function SellerProduct() {
   useEffect(() => {
     productsService.getProduct(id).then((res) => {
       setProduct(res.data[0]);
-      console.log(res.data);
       setImage(res.data[0].image);
     });
   }, [id]);

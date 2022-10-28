@@ -23,7 +23,6 @@ export function ImageUpload({ addImage, image }) {
     const base64 = await convertToBase64(file);
     setPostImage(base64);
     addImage(base64);
-    console.log(postImage);
   };
 
   return (

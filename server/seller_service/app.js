@@ -18,7 +18,7 @@ app.get("/", async (req, res) => {
   res.status(200).send("Seller Service");
 });
 
-app.post("/product", async (req, res) => {
+app.post("/product", auth, async (req, res) => {
   try {
     const newProduct = new Product(req.body);
     await newProduct.save();
@@ -28,13 +28,13 @@ app.post("/product", async (req, res) => {
   }
 });
 
-app.get("/product/:id", (req, res) => {
+app.get("/product/:id", auth, (req, res) => {
   let id = req.params.id;
   Product.findById(id, (err, product) => {
     res.json(product);
   });
 });
-app.get("/product/seller/:id", (req, res) => {
+app.get("/product/seller/:id", auth, (req, res) => {
   let sellerId = req.params.id;
   try {
     Product.find({ sellerID: sellerId }, (err, products) => {
@@ -46,7 +46,7 @@ app.get("/product/seller/:id", (req, res) => {
   }
 });
 
-app.put("/product/:id", (req, res) => {
+app.put("/product/:id", auth, (req, res) => {
   let id = req.params.id;
   try {
     Product.findByIdAndUpdate(id, req.body, (err, docs) => {
@@ -58,7 +58,7 @@ app.put("/product/:id", (req, res) => {
   }
 });
 
-app.delete("/product/:id", (req, res) => {
+app.delete("/product/:id", auth, (req, res) => {
   let id = req.params.id;
   try {
     Product.findByIdAndDelete(id, (err, docs) => {
@@ -73,14 +73,14 @@ app.delete("/product/:id", (req, res) => {
   }
 });
 
-app.get("/order/pending/:id", (req, res) => {
+app.get("/order/pending/:id", auth, (req, res) => {
   let sellerId = req.params.id;
   Order.find({ seller: sellerId, status: "Pending" }, (err, orders) => {
     res.json(orders);
   });
 });
 
-app.get("/order/delivering/:id", (req, res) => {
+app.get("/order/delivering/:id", auth, (req, res) => {
   let sellerId = req.params.id;
   Order.find({ seller: sellerId, status: "Delivering" }, (err, orders) => {
     res.json(orders);

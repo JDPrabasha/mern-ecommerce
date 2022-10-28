@@ -25,13 +25,11 @@ function Product() {
   const { addToCart } = useContext(CartContext);
 
   const { items } = useContext(CartContext);
-  console.log(items);
 
   const id = useParams().id;
 
   useEffect(() => {
     productsService.getProduct(id).then((response) => {
-      console.log(response);
       setProduct(response.data[0]);
     });
   }, []);

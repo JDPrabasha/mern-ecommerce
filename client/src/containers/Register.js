@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextInput, Box } from "@mantine/core";
+import { TextInput, Box, PasswordInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import loginService from "../services/login";
 import { useNavigate } from "react-router-dom";
@@ -58,7 +58,7 @@ function Register({ switchOperation }) {
             className="mb-6"
             {...form.getInputProps("email")}
           />
-          <TextInput
+          <PasswordInput
             withAsterisk
             label="Password"
             placeholder="password"

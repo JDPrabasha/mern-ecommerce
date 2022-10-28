@@ -9,17 +9,12 @@ function Add() {
   const [image, setImage] = useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    console.log(image);
-    console.log(form.values);
-    console.log(JSON.parse(localStorage.getItem("user"))._id);
     const payload = {
       ...form.values,
       image,
       sellerID: JSON.parse(localStorage.getItem("user"))._id,
       seller: JSON.parse(localStorage.getItem("user")).name,
     };
-    console.log(payload);
     productsService.addProduct(payload);
   };
   const form = useForm({

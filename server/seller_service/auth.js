@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
-
-const config = process.env;
+require("dotenv").config();
 
 const verifyToken = (req, res, next) => {
   const token =
@@ -10,9 +9,10 @@ const verifyToken = (req, res, next) => {
     return res.status(403).send("No token provided for authentication");
   }
   try {
-    const decoded = jwt.verify(token, config.TOKEN_KEY);
+    const decoded = jwt.verify(token, process.env.TOKEN_KEY);
     req.user = decoded;
   } catch (err) {
+    console.log("err" + err);
     return res.status(401).send("Invalid Token");
   }
   return next();
