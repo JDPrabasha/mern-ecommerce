@@ -1,0 +1,61 @@
+[{
+  "_id": {
+    "$oid": "631b2c2d4b8c7fc988a49a73"
+  },
+  "name": "Alan Doe",
+  "email": "alan@gmail.com",
+  "password": "$2b$10$X4kv7j5ZcG39WgogSl16auUSmPga3e7cWSdoioHU5bHEn0sygQLBC",
+  "role": "buyer"
+},{
+  "_id": {
+    "$oid": "631b2c2d4b8c7fc988a49a74"
+  },
+  "name": "Pettah Stores",
+  "email": "pettahstores@gmail.com",
+  "password": "$2b$10$X4kv7j5ZcG39WgogSl16auUSmPga3e7cWSdoioHU5bHEn0sygQLBC",
+  "role": "seller"
+},{
+  "_id": {
+    "$oid": "631b2c2d4b8c7fc988a49a75"
+  },
+  "name": "Meta Corp",
+  "email": "metacorp@gmail.com",
+  "password": "$2b$10$X4kv7j5ZcG39WgogSl16auUSmPga3e7cWSdoioHU5bHEn0sygQLBC",
+  "role": "seller"
+},{
+  "_id": {
+    "$oid": "632609fb4595538525a344d2"
+  },
+  "name": "Nakib Shah",
+  "email": "nakid@gmail.com",
+  "password": "$2b$10$X4kv7j5ZcG39WgogSl16auUSmPga3e7cWSdoioHU5bHEn0sygQLBC",
+  "role": "buyer",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6326e07f8cccc808c6ea29bc"
+  },
+  "name": "Dulaj Prabasha",
+  "email": "dulaj@gmail.com",
+  "password": "$2b$10$X4kv7j5ZcG39WgogSl16auUSmPga3e7cWSdoioHU5bHEn0sygQLBC",
+  "role": "buyer",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "635a2c6cbd89ee9cd087df0b"
+  },
+  "name": "Dulaj",
+  "email": "dulaj@gmail.com",
+  "password": "$2b$10$X4kv7j5ZcG39WgogSl16auB.QCY5LW3bW7LYjvNZJ.j8eLp3AqhA.",
+  "role": "buyer",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "635a2de9bc9a5cb23304e10a"
+  },
+  "name": "Dulaj",
+  "email": "dulaj@gmail.com",
+  "password": "$2b$10$X4kv7j5ZcG39WgogSl16auB.QCY5LW3bW7LYjvNZJ.j8eLp3AqhA.",
+  "role": "buyer",
+  "__v": 0
+}]
