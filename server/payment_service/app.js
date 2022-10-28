@@ -9,9 +9,8 @@ const auth = require("./auth");
 app.use(cors());
 app.use(bodyParser.json());
 
-app.post("/payment", async (req, res) => {
+app.post("/payment", auth, async (req, res) => {
   try {
-    console.log(req.body);
     const newPayment = new Payment({
       user: req.body.user,
       paymentMethod: req.body.method,

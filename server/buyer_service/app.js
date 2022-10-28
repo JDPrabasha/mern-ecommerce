@@ -13,7 +13,7 @@ app.get("/", auth, (req, res) => {
   res.status(200).send("Buyer Service");
 });
 
-app.get("/products", (req, res) => {
+app.get("/products", auth, (req, res) => {
   try {
     Product.find({}, (err, products) => {
       if (err) res.status(500).end(err);

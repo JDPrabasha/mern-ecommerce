@@ -13,7 +13,6 @@ function SellerProducts() {
       setProducts(res.data);
     });
   }, [sellerId]);
-  console.log(products);
   return (
     <div className="w-full flex ">
       <Sidebar />

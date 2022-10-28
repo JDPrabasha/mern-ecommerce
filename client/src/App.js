@@ -8,7 +8,6 @@ function App() {
   const [products, setProducts] = useState([]);
   useEffect(() => {
     productsService.getProducts().then((products) => {
-      console.log(products.data);
       setProducts(products.data);
     });
   }, []);

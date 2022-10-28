@@ -31,12 +31,10 @@ app.post("/register", async (req, res) => {
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  console.log(await bcrypt.hash(password, "$2b$10$X4kv7j5ZcG39WgogSl16au"));
   const user = await User.findOne({
     email: email,
     password: await bcrypt.hash(password, "$2b$10$X4kv7j5ZcG39WgogSl16au"),
   });
-  console.log(user);
   if (!user) return res.status(400).send("Invalid username or password");
   const token = jwt.sign({ userId: user._id, role: user.role }, "mysecretkey", {
     expiresIn: "1h",
@@ -51,7 +49,6 @@ app.post("/verify", async (req, res) => {
   jwt.verify(token, "mysecretkey", (err, user) => {
     if (err) return res.status(403).json("Token is invalid");
     req.user = user;
-    console.log(user);
   });
 });
 

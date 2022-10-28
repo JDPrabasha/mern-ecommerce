@@ -17,15 +17,10 @@ import notificationService from "../../services/notification";
 function Cart() {
   const navigate = useNavigate();
   const addCard = (a) => {
-    console.log("add card");
     setPaymentPayload(a);
-    console.log(paymentPayload);
   };
   const addMobile = (a) => {
-    console.log("add mobile");
     setPaymentPayload(a);
-    console.log(paymentPayload);
-    console.log(a);
   };
 
   const { removeFromCart, changeQuantity, clearCart } = useContext(CartContext);
@@ -43,21 +38,19 @@ function Cart() {
   const [paymentPayload, setPaymentPayload] = useState({});
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(items);
+
     const sellers = items.map((item) => item.sellerID);
-    console.log(sellers);
+
     const uniqueSellers = [...new Set(sellers)];
-    console.log(uniqueSellers);
+
     const groupBySeller = uniqueSellers.map((seller) => {
       const sellerItems = items.filter((item) => item.sellerID === seller);
-      console.log(sellerItems);
+
       return {
         seller: seller,
         items: sellerItems,
       };
     });
-
-    console.log(groupBySeller);
 
     const orderPayload = groupBySeller.map((group) => {
       return {
@@ -75,15 +68,12 @@ function Cart() {
         deliveryAddress: form.values.address,
       };
     });
-    console.log(orderPayload);
 
     ordersService
       .postOrders(orderPayload)
       .then((res) => {
-        console.log(res.status);
         if (res.status === 201) {
           const orders = res.data.orders;
-          console.log(orders);
           const payload = {
             user: JSON.parse(localStorage.getItem("user"))._id,
             ...form.values,
@@ -96,13 +86,11 @@ function Cart() {
           };
           card
             ? paymentService
-                .makePayment(payload)
+                .payByCard(payload)
                 .then((res) => {
-                  console.log(res.data.paymentID);
                   ordersService
                     .activateOrders(res.data.paymentID)
                     .then((res) => {
-                      console.log(res);
                       clearCart();
                       alert("Order successfully placed");
                       notificationService.sendNotifications(orders);
@@ -115,11 +103,9 @@ function Cart() {
             : paymentService
                 .payByMobile(payload)
                 .then((res) => {
-                  console.log(res.data.paymentID);
                   ordersService
                     .activateOrders(res.data.paymentID)
                     .then((res) => {
-                      console.log(res);
                       clearCart();
                       alert("Order successfully placed");
                       navigate("/");

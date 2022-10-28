@@ -28,7 +28,7 @@ const ordersSchema = new Schema({
   ],
   status: {
     type: String,
-    default: "Inactive",
+    default: "Pending",
   },
   seller: {
     type: Schema.Types.ObjectId,

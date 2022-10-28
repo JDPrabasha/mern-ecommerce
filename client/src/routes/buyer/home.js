@@ -9,7 +9,6 @@ function Products() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   useEffect(() => {
     productsService.getProducts().then((products) => {
-      console.log(products.data);
       setProducts(products.data);
       setFilteredProducts(products.data);
     });

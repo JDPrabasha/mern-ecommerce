@@ -30,10 +30,8 @@ function Navbar({ filterFunction }) {
         icon={<FaSearch />}
         placeholder="Search for things here"
         onKeyDown={(e) => {
-          console.log(e.target.value);
           filterFunction(e.target.value);
         }}
-        onChange={console.log("hello")}
       />
       <div className="text-white flex items-center ml-auto  gap-8">
         <p className="font-bold">
