@@ -1,0 +1,13 @@
+openapi: 3.0.1
+info:
+  title: /api/auth
+  description: API Definition of /api/auth
+  version: 1.0.0
+servers:
+- url: http://localhost:8290/AuthAPI
+paths:
+  /:
+    get:
+      responses:
+        default:
+          description: Default response

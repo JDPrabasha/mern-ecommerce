@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/api/payment" name="PaymentAPI" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST">
+        <inSequence>
+            <property description="Payment Method" expression="json-eval($.method)" name="Method" scope="default" type="STRING"/>
+            <switch source="get-property('Method')">
+                <case regex="card">
+                    <send>
+                        <endpoint key="CardEndpoint"/>
+                    </send>
+                </case>
+                <case regex="mobile">
+                    <send>
+                        <endpoint key="MobileEndpoint"/>
+                    </send>
+                </case>
+                <default/>
+            </switch>
+        </inSequence>
+        <outSequence>
+            <send/>
+        </outSequence>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST GET" uri-template="/buyer/{product}">
+        <inSequence/>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>

@@ -1,0 +1,11 @@
+---
+key: "/api/auth-1.0.0"
+name : "/api/auth"
+displayName : "/api/auth"
+description: "Sample API"
+version: "1.0.0"
+serviceUrl: "https://{MI_HOST}:{MI_PORT}/AuthAPI"
+definitionType: "OAS3"
+securityType: "BASIC"
+mutualSSLEnabled: false
+apiId : "null"

@@ -1,0 +1,13 @@
+openapi: 3.0.1
+info:
+  title: OrderAPI
+  description: API Definition of OrderAPI
+  version: 1.0.0
+servers:
+- url: http://localhost:8290/api/order
+paths:
+  /:
+    get:
+      responses:
+        default:
+          description: Default response

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="PaymentAPI" groupId="wso2.sampleHelloWorld.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/PaymentAPI.xml</file>
+    </artifact>
+    <artifact name="PaymentAPI_swagger" groupId="wso2.sampleHelloWorld.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/PaymentAPI_swagger.yaml</file>
+    </artifact>
+    <artifact name="PaymentAPI_metadata" groupId="wso2.sampleHelloWorld.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/PaymentAPI_metadata.yaml</file>
+    </artifact>
+    <artifact name="CardEndpoint" groupId="wso2.sampleHelloWorld.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/CardEndpoint.xml</file>
+    </artifact>
+    <artifact name="MobileEndpoint" groupId="wso2.sampleHelloWorld.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/MobileEndpoint.xml</file>
+    </artifact>
+    <artifact name="ProductAPI" groupId="wso2.sampleHelloWorld.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/ProductAPI.xml</file>
+    </artifact>
+    <artifact name="ProductAPI_swagger" groupId="wso2.sampleHelloWorld.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/ProductAPI_swagger.yaml</file>
+    </artifact>
+    <artifact name="ProductAPI_metadata" groupId="wso2.sampleHelloWorld.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/ProductAPI_metadata.yaml</file>
+    </artifact>
+    <artifact name="OrderAPI" groupId="wso2.sampleHelloWorld.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/OrderAPI.xml</file>
+    </artifact>
+    <artifact name="OrderAPI_swagger" groupId="wso2.sampleHelloWorld.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/OrderAPI_swagger.yaml</file>
+    </artifact>
+    <artifact name="OrderAPI_metadata" groupId="wso2.sampleHelloWorld.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/OrderAPI_metadata.yaml</file>
+    </artifact>
+    <artifact name="/api/auth" groupId="wso2.sampleHelloWorld.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/api/auth.xml</file>
+    </artifact>
+    <artifact name="/api/auth_swagger" groupId="wso2.sampleHelloWorld.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/api/auth_swagger.yaml</file>
+    </artifact>
+    <artifact name="/api/auth_metadata" groupId="wso2.sampleHelloWorld.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/api/auth_metadata.yaml</file>
+    </artifact>
+    <artifact name="AuthAPI" groupId="wso2.sampleHelloWorld.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/AuthAPI.xml</file>
+    </artifact>
+    <artifact name="AuthAPI_swagger" groupId="wso2.sampleHelloWorld.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/AuthAPI_swagger.yaml</file>
+    </artifact>
+    <artifact name="AuthAPI_metadata" groupId="wso2.sampleHelloWorld.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/AuthAPI_metadata.yaml</file>
+    </artifact>
+    <artifact name="DeliveryAPI" groupId="wso2.sampleHelloWorld.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/DeliveryAPI.xml</file>
+    </artifact>
+    <artifact name="DeliveryAPI_swagger" groupId="wso2.sampleHelloWorld.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/DeliveryAPI_swagger.yaml</file>
+    </artifact>
+    <artifact name="DeliveryAPI_metadata" groupId="wso2.sampleHelloWorld.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/DeliveryAPI_metadata.yaml</file>
+    </artifact>
+    <artifact name="OrderEndPoint" groupId="wso2.sampleHelloWorld.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/OrderEndPoint.xml</file>
+    </artifact>
+    <artifact name="ProductEndPoint" groupId="wso2.sampleHelloWorld.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/ProductEndPoint.xml</file>
+    </artifact>
+    <artifact name="AuthEndpoint" groupId="wso2.sampleHelloWorld.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/AuthEndpoint.xml</file>
+    </artifact>
+    <artifact name="DeliveryEndPoint" groupId="wso2.sampleHelloWorld.endpoint" version="1.0.0" type="synapse/endpoint" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/endpoints/DeliveryEndPoint.xml</file>
+    </artifact>
+</artifacts>

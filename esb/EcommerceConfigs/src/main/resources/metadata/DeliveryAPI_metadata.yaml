@@ -1,0 +1,11 @@
+---
+key: "DeliveryAPI-1.0.0"
+name : "DeliveryAPI"
+displayName : "DeliveryAPI"
+description: "Sample API"
+version: "1.0.0"
+serviceUrl: "https://{MI_HOST}:{MI_PORT}/api/delivery"
+definitionType: "OAS3"
+securityType: "BASIC"
+mutualSSLEnabled: false
+apiId : "null"
